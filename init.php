@@ -1,8 +1,8 @@
 <?php 
 /*
 Plugin Name: Doctors Information Slider
-Plugin URI:  http://softtech-it.com
-Description: very easy to use Slider to show Doctors Information
+Plugin URI:  http://shemantabhowmik.com
+Description: Very easy to use Slider to show Doctors Information
 Version:     1.0.0
 Author:      Batch 24
 Author URI:  http://batch24.xyz
@@ -15,13 +15,16 @@ Text Domain: doctors-info
 
 defined( 'ABSPATH' ) or die( 'directory browing is disabled' );
 
-
-
-
-
 class Doctor{
 
+	/**
+	 * All importants actions which will be added instantly after activation this plugin are here.
+	 * -- plugin main action hook
+	 * -- metabox files required
+	 * -- scripts files hook
+	 */
 	public function __construct(){
+
 		// required files 
 		if( file_exists( dirname(__FILE__) . '/metabox/init.php' ) ){
 			require_once( dirname(__FILE__) . '/metabox/init.php');
@@ -36,7 +39,15 @@ class Doctor{
 
 	}
 
+	/**
+	 * All style and script files are here
+	 * -- owl carouse css file
+	 * -- custom css file
+	 * -- owl carousel js file
+	 * -- custom js file
+	 */
 	public function external_scripts_and_styles(){
+
 		wp_enqueue_style('owl-carousel', PLUGINS_URL('css/owl.carousel.css', __FILE__));
 
 		wp_enqueue_style('owl-custom', PLUGINS_URL('css/owl.custom.css', __FILE__));
@@ -44,9 +55,11 @@ class Doctor{
 		wp_enqueue_script('owl-carousel', PLUGINS_URL('js/owl.carousel.min.js', __FILE__), array('jquery'));
 
 		wp_enqueue_script('owl-custom', PLUGINS_URL('js/owl.custom.js', __FILE__), array('jquery'));
+	
 	}
 
 	public function sujan_doctors_slider_post() {
+
 		$labels = array(
 			'name'               => _x( 'Doctors', 'Doctors general name', 'doctors-info' ),
 			'singular_name'      => _x( 'Doctor', 'Doctors singular name', 'doctors-info' ),
@@ -83,9 +96,11 @@ class Doctor{
 
 		register_post_type( 'doctors_info', $args );
 
-
-
-		// taxonomy 
+		/**
+		 * Taxinomy register for this plugin
+		 * Name "Speciality"
+		 * user can add speciality easily using this taxonomy
+		 */
 
 		$label = array(
 			'name'                       => _x( 'Speciality', 'Speciality general name' ),
@@ -119,6 +134,9 @@ class Doctor{
 		register_taxonomy( 'doctors-speciality', 'doctors_info', $arguments );
 	}
 
+	/**
+	 * Adding shortcode 
+	 */
 	public function doctors_shortcode(){
 
 		add_shortcode('doctors-info', array( $this, 'doctors_info_output' ) );
@@ -126,17 +144,23 @@ class Doctor{
 	}
 
 	public function doctors_info_output(){
+
 		ob_start(); 
+		
 		$prefix = '_prefix_';
 		
-		$doctors_info = new WP_Query(array(
+		$doctors_info = new WP_Query( array(
+	
 			'post_type' => 'doctors_info',
 			'posts_per_page' => -1
-		));
+		
+		) );
 
 		?>
 		<div class="sujan-doctors">
+
 		<?php while($doctors_info->have_posts()) : $doctors_info->the_post();
+		
 		?>
 
 			<div class="doctors-info">
@@ -149,11 +173,17 @@ class Doctor{
 							<li>Name: <span><?php echo get_post_meta(get_the_id(), $prefix.'doctors_name', true); ?></span></li>
 							<li>Speciality: <span>
 								
-								<?php $specialities = get_the_terms(get_the_id(), 'doctors-speciality');
+								<?php 
+								
+								$specialities = get_the_terms(get_the_id(), 'doctors-speciality');
 
-								foreach($specialities as $speciality) {
-									echo $speciality->name;
-								} ?>
+								if ( !empty( $specialities ) )
+									foreach($specialities as $speciality)
+										echo $speciality->name;
+								else
+									echo 'N/A';
+								
+								?>
 							</span></li>
 							<li>Age: <span><?php echo get_post_meta(get_the_id(), $prefix.'doctors_age', true); ?></span></li>
 							<li>Degree: <span><?php echo get_post_meta(get_the_id(), $prefix.'doctors_degree', true); ?></span></li>
@@ -163,18 +193,12 @@ class Doctor{
 					</div>
 				</div>
 			</div>
-
 		<?php endwhile; ?>
-
 		</div>
-
 		<?php return ob_get_clean();
 	}
 
-
-
 }
-
 
 $doctor = new Doctor();
 
