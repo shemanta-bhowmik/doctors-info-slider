@@ -157,7 +157,7 @@ class Doctor{
 		) );
 
 		?>
-		<div class="sujan-doctors">
+		<div class="doctors">
 
 		<?php while($doctors_info->have_posts()) : $doctors_info->the_post();
 		
@@ -170,8 +170,8 @@ class Doctor{
 				<div class="info-right">
 					<div class="informations">
 						<ul>
-							<li>Name: <span><?php echo get_post_meta(get_the_id(), $prefix.'doctors_name', true); ?></span></li>
-							<li>Speciality: <span>
+							<li><strong>Name:</strong> <span><?php echo get_post_meta(get_the_id(), $prefix.'doctors_name', true); ?></span></li>
+							<li><strong>Speciality:</strong> <span>
 								
 								<?php 
 								
@@ -185,9 +185,9 @@ class Doctor{
 								
 								?>
 							</span></li>
-							<li>Age: <span><?php echo get_post_meta(get_the_id(), $prefix.'doctors_age', true); ?></span></li>
-							<li>Degree: <span><?php echo get_post_meta(get_the_id(), $prefix.'doctors_degree', true); ?></span></li>
-							<li>Chamber: <span><?php echo get_post_meta(get_the_id(), $prefix.'doctors_chamber', true); ?></span></li>
+							<li><strong>Age:</strong> <span><?php echo get_post_meta(get_the_id(), $prefix.'doctors_age', true); ?></span></li>
+							<li><strong>Degree:</strong> <span><?php echo get_post_meta(get_the_id(), $prefix.'doctors_degree', true); ?></span></li>
+							<li><strong>Chamber:</strong> <span><?php echo get_post_meta(get_the_id(), $prefix.'doctors_chamber', true); ?></span></li>
 							
 						</ul>
 					</div>

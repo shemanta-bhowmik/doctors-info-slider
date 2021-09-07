@@ -1,0 +1,30 @@
+/* Custom Css */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+.owl-item {
+    background: #fff;
+    border-radius: 5px;
+    margin: 5px;
+    box-shadow: 0 0px 50px -40px #000;
+}
+.doctors {
+    font-family: 'Ubuntu', sans-serif;
+}
+.doctors ul {
+    margin: 0;
+    padding: 0;
+}
+.doctors ul li {
+    list-style: none;
+}
+.doctors ul li a {
+    list-style: none;
+}
+.doctors .info-left img {
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.doctors .informations {
+    padding: 20px;
+}
