@@ -1,2 +1,2 @@
 # doctors-info-slider
-This is a slider for doctor's information.
+This is a slider wordpress plugin for doctor's information.
